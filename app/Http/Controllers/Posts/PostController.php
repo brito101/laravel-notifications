@@ -8,9 +8,22 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    private $post;
+
+    public function __construct(Post $post)
+    {
+        $this->post = $post;
+    }
+
     public function index()
     {
-        $posts = Post::paginate();
+        $posts = $this->post::paginate();
         return view('posts.index', compact('posts'));
+    }
+
+    public function show($id)
+    {
+        $post = $this->post->find($id);
+        return view('posts.show', compact('post'));
     }
 }

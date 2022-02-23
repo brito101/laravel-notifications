@@ -3,7 +3,9 @@
 @section('content')
     <h1>Listagem de Posts</h1>
     @forelse ($posts as $post)
-        {{ $post->title }}
+        <a href="{{ route('posts.show', $post->id) }}">
+            {{ $post->title }}
+        </a>
         <hr>
     @empty
         <p>Nenhum post cadastrado!</p>
