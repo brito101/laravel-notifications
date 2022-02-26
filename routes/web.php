@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Posts\CommentController;
 use App\Http\Controllers\Posts\PostController;
 use Illuminate\Support\Facades\Auth;
@@ -26,3 +27,4 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('posts', PostController::class);
 Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
+Route::get('notifications', [NotificationController::class, 'notifications'])->name('notifications');
