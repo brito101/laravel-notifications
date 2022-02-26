@@ -17,13 +17,13 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->post::paginate();
+        $posts = $this->post->with('comments')->paginate();
         return view('posts.index', compact('posts'));
     }
 
     public function show($id)
     {
-        $post = $this->post->find($id);
+        $post = $this->post->with('comments')->find($id);
         return view('posts.show', compact('post'));
     }
 }

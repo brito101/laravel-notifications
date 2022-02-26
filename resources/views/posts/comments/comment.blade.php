@@ -34,3 +34,10 @@
 @else
     <p>Para comentar é preciso estar logado. <a href="{{ route('login') }}">Clique aqui para logar</a></p>
 @endauth
+<hr>
+<h3>Comentários ({{ $post->comments->count() }})</h3>
+@forelse ($post->comments as $comment)
+    <p> <b>{{ $comment->user->name }} comentou:</b>
+        {{ $comment->title }} - {{ $comment->body }}</p>
+@empty
+@endforelse
