@@ -11,7 +11,7 @@ class Comment extends Model
 
     protected $fillable = ['user_id', 'post_id', 'title', 'body'];
 
-    public function posts()
+    public function post()
     {
         return $this->belongsTo(Post::class);
     }
@@ -19,10 +19,5 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function postAuthor()
-    {
-        return (Post::where('id', $this->post_id)->first())->user;
     }
 }
