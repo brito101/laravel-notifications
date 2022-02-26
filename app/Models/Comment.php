@@ -20,4 +20,9 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function postAuthor()
+    {
+        return (Post::where('id', $this->post_id)->first())->user;
+    }
 }

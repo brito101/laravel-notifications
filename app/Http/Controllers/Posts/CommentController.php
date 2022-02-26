@@ -13,7 +13,7 @@ class CommentController extends Controller
     public function store(StoreCommentFormRequest $request)
     {
         $comment = $request->user()->comments()->create($request->all());
-        $author = (Post::where('id', $comment->post_id)->first())->user;
+        $author = $comment->postAuthor();
         $author->notify(new PostCommented($comment));
         return redirect()->route('posts.show', $comment->post_id)
             ->with('status', 'Comentário realizado com sucesso!');
