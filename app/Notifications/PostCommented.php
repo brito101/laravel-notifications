@@ -32,7 +32,7 @@ class PostCommented extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -48,6 +48,13 @@ class PostCommented extends Notification implements ShouldQueue
             ->line($this->comment->body)
             ->action('Ver comentário', route('posts.show', $this->comment->post_id))
             ->line('Obrigado!');
+    }
+
+    public function toDatabase($notifiable)
+    {
+        return [
+            'comment' => $this->comment
+        ];
     }
 
     /**
