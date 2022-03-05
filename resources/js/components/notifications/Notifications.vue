@@ -33,25 +33,11 @@ import Notification from "./Notification.vue";
 export default {
     components: { Notification },
     created() {
-        this.loadNotifications();
+        this.$store.dispatch("loadNotifications");
     },
     computed: {
         notifications() {
-            return this.notificationsItems;
-        },
-    },
-    data() {
-        return {
-            notificationsItems: [],
-        };
-    },
-    methods: {
-        loadNotifications() {
-            axios
-                .get("/laravel-notifications/public/notifications")
-                .then(
-                    (res) => (this.notificationsItems = res.data.notifications)
-                );
+            return this.$store.state.notifications.items;
         },
     },
 };
