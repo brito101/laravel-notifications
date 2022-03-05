@@ -28,3 +28,5 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('posts', PostController::class);
 Route::post('comment', [CommentController::class, 'store'])->name('comment.store');
 Route::get('notifications', [NotificationController::class, 'notifications'])->name('notifications');
+Route::put('notification-read', [NotificationController::class, 'markAsRead']);
+Route::put('notification-all-read', [NotificationController::class, 'markAllAsRead']);

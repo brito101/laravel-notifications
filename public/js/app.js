@@ -5270,11 +5270,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["notification"],
   computed: {
     comment: function comment() {
-      return this.notification.comment;
+      return this.notification.data.comment;
+    }
+  },
+  methods: {
+    markAsRead: function markAsRead(idNotification) {
+      this.$store.dispatch("markAsRead", {
+        id: idNotification
+      });
     }
   }
 });
@@ -5438,11 +5446,13 @@ __webpack_require__.r(__webpack_exports__);
   mutations: {
     LOAD_NOTIFICATIONS: function LOAD_NOTIFICATIONS(state, notifications) {
       state.items = notifications;
-    } //     MARK_AS_READ(state, id) {
-    //         let index = state.items.filter((notication) => notication.id == id);
-    //         state.items.splice(index, 1);
-    //     },
-    //     MARK_ALL_AS_READ(state) {
+    },
+    MARK_AS_READ: function MARK_AS_READ(state, id) {
+      var index = state.items.filter(function (notication) {
+        return notication.id == id;
+      });
+      state.items.splice(index, 1);
+    } //     MARK_ALL_AS_READ(state) {
     //         state.items = [];
     //     },
     //     ADD_NOTIFICATION(state, notication) {
@@ -5455,12 +5465,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/laravel-notifications/public/notifications").then(function (res) {
         context.commit("LOAD_NOTIFICATIONS", res.data.notifications);
       });
-    } //     markAsRead(context, params) {
-    //         axios
-    //             .put("/notification-read", params)
-    //             .then(() => context.commit("MARK_AS_READ", params.id));
-    //     },
-    //     markAllAsRead(context) {
+    },
+    markAsRead: function markAsRead(context, params) {
+      axios.put("/laravel-notifications/public/notification-read", params).then(function () {
+        return context.commit("MARK_AS_READ", params.id);
+      });
+    } //     markAllAsRead(context) {
     //         axios
     //             .put("/notification-all-read")
     //             .then(() => context.commit("MARK_ALL_AS_READ"));
@@ -28105,6 +28115,18 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c(
+        "span",
+        {
+          staticClass: "btn btn-info btn-sm",
+          on: {
+            click: function ($event) {
+              return _vm.markAsRead(_vm.notification.id)
+            },
+          },
+        },
+        [_vm._v("Lida")]
+      ),
       _vm._v(
         "\n        " +
           _vm._s(_vm.comment.user.name) +
@@ -28172,7 +28194,7 @@ var render = function () {
           _vm._l(_vm.notifications, function (notification) {
             return _c("notification", {
               key: notification.id,
-              attrs: { notification: notification.data },
+              attrs: { notification: notification },
             })
           }),
           _vm._v(" "),
