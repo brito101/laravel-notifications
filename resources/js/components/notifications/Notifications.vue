@@ -10,20 +10,18 @@
                 aria-haspopup="true"
                 aria-expanded="false"
             >
-                Notificações
+                Notificações ({{ notifications.length }})
             </a>
             <div
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdown"
             >
-                <a
-                    class="dropdown-item"
-                    href="#"
+                <notification
                     v-for="notification in notifications"
                     :key="notification.id"
+                    :notification="notification.data"
                 >
-                    {{ notification.data.comment.title }}
-                </a>
+                </notification>
                 <a class="dropdown-item" href="#"> Limpar Notificações </a>
             </div>
         </li>
@@ -31,7 +29,9 @@
 </template>
 
 <script>
+import Notification from "./Notification.vue";
 export default {
+    components: { Notification },
     created() {
         this.loadNotifications();
     },

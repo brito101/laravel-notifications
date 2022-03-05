@@ -25,6 +25,10 @@ Vue.component(
     "notifications",
     require("./components/notifications/Notifications").default
 );
+Vue.component(
+    "notification",
+    require("./components/notifications/Notification").default
+);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
