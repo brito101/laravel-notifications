@@ -25,8 +25,11 @@ import Echo from "laravel-echo";
 window.Pusher = require("pusher-js");
 
 window.Echo = new Echo({
+    authEndpoint: 'http://localhost/laravel-notifications/public/broadcasting/auth',
     broadcaster: "pusher",
     key: window.Laravel.pusher.key,
     cluster: window.Laravel.pusher.cluster,
     forceTLS: true,
 });
+
+require('./Echo');

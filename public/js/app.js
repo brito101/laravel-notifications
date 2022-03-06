@@ -5359,6 +5359,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Echo.js":
+/*!******************************!*\
+  !*** ./resources/js/Echo.js ***!
+  \******************************/
+/***/ (() => {
+
+// import store from "./vuex/store";
+// import swal from "sweetalert";
+// const typesNotifications = {
+//     postCommented: "App\\Notifications\\PostCommented",
+// };
+if (Laravel.user) {
+  console.log("App.Models.User.".concat(Laravel.user));
+  Echo["private"]("App.Models.User.".concat(Laravel.user)).notification(function (notification) {
+    console.log(notification); // if (Laravel.user == notification.data.comment.post.user.id) {
+    //     if (notification.type == typesNotifications.postCommented) {
+    //         swal(
+    //             "Novo Comentário",
+    //             `O post ${notification.data.comment.post.title} foi comentárdo por: ${notification.data.comment.user.name}`,
+    //             "info"
+    //         );
+    //         store.commit("ADD_NOTIFICATION", notification);
+    //     }
+    // }
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -5435,11 +5464,14 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
+  authEndpoint: 'http://localhost/laravel-notifications/public/broadcasting/auth',
   broadcaster: "pusher",
   key: window.Laravel.pusher.key,
   cluster: window.Laravel.pusher.cluster,
   forceTLS: true
 });
+
+__webpack_require__(/*! ./Echo */ "./resources/js/Echo.js");
 
 /***/ }),
 
@@ -5470,10 +5502,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     MARK_ALL_AS_READ: function MARK_ALL_AS_READ(state) {
       state.items = [];
-    } //     ADD_NOTIFICATION(state, notication) {
-    //         state.items.unshift(notication);
-    //     },
-
+    },
+    ADD_NOTIFICATION: function ADD_NOTIFICATION(state, notication) {
+      state.items.unshift(notication);
+    }
   },
   actions: {
     loadNotifications: function loadNotifications(context) {

@@ -17,9 +17,9 @@ export default {
             state.items = [];
         },
 
-        //     ADD_NOTIFICATION(state, notication) {
-        //         state.items.unshift(notication);
-        //     },
+        ADD_NOTIFICATION(state, notication) {
+            state.items.unshift(notication);
+        },
     },
 
     actions: {
