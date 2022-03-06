@@ -5331,6 +5331,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -5342,6 +5348,11 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     notifications: function notifications() {
       return this.$store.state.notifications.items;
+    }
+  },
+  methods: {
+    markAllAsRead: function markAllAsRead() {
+      this.$store.dispatch("markAllAsRead");
     }
   }
 });
@@ -5452,10 +5463,10 @@ __webpack_require__.r(__webpack_exports__);
         return notication.id == id;
       });
       state.items.splice(index, 1);
-    } //     MARK_ALL_AS_READ(state) {
-    //         state.items = [];
-    //     },
-    //     ADD_NOTIFICATION(state, notication) {
+    },
+    MARK_ALL_AS_READ: function MARK_ALL_AS_READ(state) {
+      state.items = [];
+    } //     ADD_NOTIFICATION(state, notication) {
     //         state.items.unshift(notication);
     //     },
 
@@ -5470,12 +5481,12 @@ __webpack_require__.r(__webpack_exports__);
       axios.put("/laravel-notifications/public/notification-read", params).then(function () {
         return context.commit("MARK_AS_READ", params.id);
       });
-    } //     markAllAsRead(context) {
-    //         axios
-    //             .put("/notification-all-read")
-    //             .then(() => context.commit("MARK_ALL_AS_READ"));
-    //     },
-
+    },
+    markAllAsRead: function markAllAsRead(context) {
+      axios.put("/laravel-notifications/public/notification-all-read").then(function () {
+        return context.commit("MARK_ALL_AS_READ");
+      });
+    }
   }
 });
 
@@ -28198,9 +28209,20 @@ var render = function () {
             })
           }),
           _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v(" Limpar Notificações "),
-          ]),
+          _c(
+            "a",
+            {
+              staticClass: "dropdown-item",
+              attrs: { href: "#" },
+              on: {
+                click: function ($event) {
+                  $event.preventDefault()
+                  return _vm.markAllAsRead.apply(null, arguments)
+                },
+              },
+            },
+            [_vm._v("\n                Limpar Notificações\n            ")]
+          ),
         ],
         2
       ),

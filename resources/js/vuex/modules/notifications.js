@@ -13,9 +13,9 @@ export default {
             state.items.splice(index, 1);
         },
 
-        //     MARK_ALL_AS_READ(state) {
-        //         state.items = [];
-        //     },
+        MARK_ALL_AS_READ(state) {
+            state.items = [];
+        },
 
         //     ADD_NOTIFICATION(state, notication) {
         //         state.items.unshift(notication);
@@ -40,10 +40,10 @@ export default {
                 .then(() => context.commit("MARK_AS_READ", params.id));
         },
 
-        //     markAllAsRead(context) {
-        //         axios
-        //             .put("/notification-all-read")
-        //             .then(() => context.commit("MARK_ALL_AS_READ"));
-        //     },
+        markAllAsRead(context) {
+            axios
+                .put("/laravel-notifications/public/notification-all-read")
+                .then(() => context.commit("MARK_ALL_AS_READ"));
+        },
     },
 };
